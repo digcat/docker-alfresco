@@ -58,6 +58,7 @@ alfresco:
   volumes: 
     - data:/data
     - logs:/logs
+    - upgrade:/upgrade
 share:
   build: share
   dns: <% INSPECT consul {{ .NetworkSettings.IPAddress }} %>
@@ -65,6 +66,7 @@ share:
     - "--expose=8080"
   volumes: 
     - data:/data
+    - upgrade:/upgrade
   after:
     - alfresco
   upwhen:
@@ -81,6 +83,7 @@ solr:
     - data:/data
     - content:/content
     - logs:/logs
+    - upgrade:/upgrade
   upwhen:
     logmsg: "INFO: Server startup in "
     timeout: 60
@@ -144,3 +147,17 @@ haveged:
 libreoffice:
   #image: jamotion/odoo-soffice 
   build: libreoffice
+tika:
+  dns: <% INSPECT consul {{ .NetworkSettings.IPAddress }} %>
+  build: tika
+  options:
+    - "--expose=9998"
+  after:
+    - share
+datamart:
+  dns: <% INSPECT consul {{ .NetworkSettings.IPAddress }} %>
+  build: datamart
+  link:
+    - tika
+  after:
+    - tika
