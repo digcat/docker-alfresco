@@ -1,3 +1,3 @@
-cd ~
-./run1st.py
-./run2nd.sh
+cd ~/cmistool
+./run1st.py > /var/log/datamart_getdata.log
+./run2nd.sh > /var/log/datamart_pushdata.log

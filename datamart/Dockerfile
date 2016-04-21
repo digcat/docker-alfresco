@@ -14,7 +14,7 @@ COPY files/cmistool/run1st.py /root/cmistool/run1st.py
 COPY files/cmistool/run2nd.sh /root/cmistool/run2nd.sh
 COPY files/cmistool/testpics.sh /root/cmistool/testpics.sh
 COPY files/cmistool/tika_obo.py /root/cmistool/tika_obo.py
-
+COPY files/datamart /datamart
 
 RUN easy_install cmislib
 RUN cd /root && git clone https://github.com/erny/cmislib-alfresco-extension.git && cd cmislib-alfresco-extension && python setup.py install
